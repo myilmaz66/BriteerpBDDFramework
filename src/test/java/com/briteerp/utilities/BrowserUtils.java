@@ -265,8 +265,18 @@ public class BrowserUtils {
         return false;
     }
 
+    // Returns a random number in between the given numbers
     public static int randomNumber(int start, int end) {
         return start + (int) (Math.random() * (end - start + 1));
+    }
+
+    //Creates an expiration date for a credit card
+    public static String expiryDate() {
+
+        String month = randomNumber(1, 12) + "";
+        String year = randomNumber(19, 23) + "";
+        month = Integer.parseInt(month) < 10 ? "0" + month : month;
+        return month + "/" + year;
     }
 }
 
