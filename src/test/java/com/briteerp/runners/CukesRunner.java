@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "com/briteerp/steps",
         dryRun = false)
-
 public class CukesRunner {
 
 }
