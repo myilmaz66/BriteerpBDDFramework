@@ -49,6 +49,9 @@ public class PointOfSale {
     @FindBy(xpath = "//a[contains(text(),'Count')]")
     public WebElement count;
 
+    @FindBy(xpath = "//*[@data-name='open_ui']")
+    public WebElement resumeButton;
+
     @FindBy(xpath = "//button[@class='btn btn-default fa fa-bar-chart-o o_graph_button active']")
     public WebElement barChart;
 

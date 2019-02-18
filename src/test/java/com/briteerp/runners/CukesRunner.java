@@ -13,10 +13,9 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber.json",
                 "rerun:target/rerun.txt"},
         features = "src/test/resources/features",
-        glue = "com/cybertek/steps",
+        glue = "com/briteerp/steps",
         dryRun = false,
-        tags = "@wip"
+        tags = "@back1"
 )
 public class CukesRunner {
-
 }

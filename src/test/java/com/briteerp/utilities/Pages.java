@@ -23,6 +23,7 @@ public class Pages {
     private ProductPage productPage;
     private Orders2Page orders2page;
     private OrderlistsPage orderlistpage;
+    private WholeFoodsStorePage wholeFoodsStorePage;
 
     public Orders2Page orders2Page() {
         if (orders2page == null) {
@@ -161,5 +162,13 @@ public class Pages {
             pricelistSaveDiscardPage = new PricelistSaveDiscardPage();
         }
         return pricelistSaveDiscardPage;
+    }
+
+    public WholeFoodsStorePage wholeFoodsStorePage() {
+        if (wholeFoodsStorePage == null) {
+            wholeFoodsStorePage = new WholeFoodsStorePage();
+        }
+        return wholeFoodsStorePage;
+
     }
 }
