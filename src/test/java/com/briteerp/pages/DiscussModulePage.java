@@ -20,4 +20,6 @@ public class DiscussModulePage {
     public WebElement pointOfSale;
 
 
+    @FindBy(xpath = "(//*[@class='oe_menu_text'])[1]")
+    public WebElement discuss;
 }
