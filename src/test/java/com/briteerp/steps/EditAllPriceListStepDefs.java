@@ -1,56 +1,62 @@
 package com.briteerp.steps;
 
+import com.briteerp.utilities.BrowserUtils;
+import com.briteerp.utilities.ConfigurationReader;
+import com.briteerp.utilities.Driver;
+import com.briteerp.utilities.Pages;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.WebDriver;
+
+import javax.security.auth.login.Configuration;
 
 public class EditAllPriceListStepDefs {
+    Pages pages = new Pages();
+
+
     @Given("User navigates to odoo homepage")
     public void user_navigates_to_odoo_homepage() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
     }
 
     @When("User clicks on BriteErpDemo link")
     public void user_clicks_on_BriteErpDemo_link() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        pages.odoo().briteErpDemo.click();
     }
 
-    @When("User puts email {string} and password {string}")
-    public void user_puts_email_and_password(String string, String string2) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+    @Then("User puts email {string} and password {string}")
+    public void user_puts_email_and_password(String email, String password) {
+        pages.loginPage().emailBox.sendKeys(ConfigurationReader.getProperty(email));
+        pages.loginPage().passwordBox.sendKeys(ConfigurationReader.getProperty(password));
     }
 
     @When("User clicks on login button")
     public void user_clicks_on_login_button() {
+        pages.loginPage().logInButton.click();
+    }
+
+    @Then("User should be able to log in")
+    public void user_should_be_able_to_log_in() {
         // Write code here that turns the phrase above into concrete actions
         throw new cucumber.api.PendingException();
     }
 
     @When("User clicks on Point of Sale")
     public void user_clicks_on_Point_of_Sale() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        pages.discussModulePage().pointOfSale.click();
     }
 
     @When("User clicks on Pricelists link")
     public void user_clicks_on_Pricelists_link() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        pages.pointOfSaleModulePage().pricelistsLink.click();
     }
+//===================================================================================================================================================================================
 
-    @Given("User is on Pricelists page")
-    public void user_is_on_Pricelists_page() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
 
     @When("User clicks on a random pricelist name")
     public void user_clicks_on_a_random_pricelist_name() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+
     }
 
     @When("User clicks on edit button")
@@ -77,7 +83,7 @@ public class EditAllPriceListStepDefs {
         throw new cucumber.api.PendingException();
     }
 
-    @Then("User clicks on Pricelists link again")
+    @When("User clicks on Pricelists link again")
     public void user_clicks_on_Pricelists_link_again() {
         // Write code here that turns the phrase above into concrete actions
         throw new cucumber.api.PendingException();
@@ -88,5 +94,57 @@ public class EditAllPriceListStepDefs {
         // Write code here that turns the phrase above into concrete actions
         throw new cucumber.api.PendingException();
     }
+
+
+//======================================================================================================================================================================================
+
+    @Given("User is on Pricelists page")
+    public void user_is_on_Pricelists_page() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new cucumber.api.PendingException();
+    }
+
+    @When("User types a code into {string} field")
+    public void user_types_a_code_into_field(String string) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new cucumber.api.PendingException();
+    }
+
+    @When("User clicks on {string} dropdown and choose the second option")
+    public void user_clicks_on_dropdown_and_choose_the_second_option(String string) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new cucumber.api.PendingException();
+    }
+
+    @When("User deletes an item from {string} table")
+    public void user_deletes_an_item_from_table(String string) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new cucumber.api.PendingException();
+    }
+
+    @When("User clicks on discard button")
+    public void user_clicks_on_discard_button() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new cucumber.api.PendingException();
+    }
+
+    @Then("User should see the message")
+    public void user_should_see_the_message() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new cucumber.api.PendingException();
+    }
+
+    @When("User clicks on {string} button")
+    public void user_clicks_on_button(String string) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new cucumber.api.PendingException();
+    }
+
+    @Then("User should see the same info about the pricelist")
+    public void user_should_see_the_same_info_about_the_pricelist() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new cucumber.api.PendingException();
+    }
+
 
 }

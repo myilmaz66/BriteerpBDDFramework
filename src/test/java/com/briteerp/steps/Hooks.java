@@ -2,14 +2,15 @@ package com.briteerp.steps;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
-import org.junit.Before;
 import com.briteerp.utilities.Driver;
+import cucumber.api.java.Before;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import java.util.concurrent.TimeUnit;
 
 public class Hooks {
+
     @Before
     public void setup() {
         Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
