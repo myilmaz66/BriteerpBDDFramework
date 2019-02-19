@@ -14,13 +14,17 @@ import org.junit.Assert;
 
 import java.util.List;
 
-import static com.briteerp.utilities.BrowserUtils.fluentWait;
 import static com.briteerp.utilities.BrowserUtils.waitForClickablility;
 
-public class EditAllPriceListStepDefs implements PricelistInfo{
+public class EditAllPriceListStepDefs {
     Pages pages = new Pages();
     String newPricelistName;
-    int itemsCount;
+    String pricelistName;
+    String eCommercePromotionalCode;
+    String allowToUseOn;
+    String itemsCount;
+    int itemsCount2;
+
 
     @Given("{string} navigates to odoo homepage")
     public void navigatesToOdooHomepage(String user) {
@@ -38,6 +42,15 @@ public class EditAllPriceListStepDefs implements PricelistInfo{
     @Then("{string} logs in as a manager")
     public void logsInAsAManager(String arg0) {
         pages.loginPage().positiveLogIn();
+    }
+
+    @And("{string} clicks on a random pricelist name")
+    public void clicksOnARandomPricelistName(String arg0) {
+        pages.pricelists().priceListNames.get(BrowserUtils.randomNumber(0, pages.pricelists().priceListNames.size() - 1)).click();
+        pricelistName = pages.pricelistEditCreate().pricelistName.getText();
+        eCommercePromotionalCode = pages.pricelistEditCreate().eCommercePromotionalCodeBox.getText();
+        allowToUseOn = pages.pricelistEditCreate().selectedAllowToUseOn.getText();
+        itemsCount = pages.pricelistEditCreate().pricelistItems.size() + "";
     }
 
     @And("{string} changes the name of the pricelist")
@@ -73,12 +86,7 @@ public class EditAllPriceListStepDefs implements PricelistInfo{
     @And("{string} deletes an item from Pricelist Items table")
     public void deletesAnItemFromPricelistItemsTable(String arg0) {
         pages.pricelistSaveDiscardPage().deleteSigns.get(BrowserUtils.randomNumber(0,
-        pages.pricelistSaveDiscardPage().deleteSigns.size() - 1)).click();
-    }
-
-    @Then("{string} should see the message")
-    public void shouldSeeTheMessage(String arg0) {
-
+                pages.pricelistSaveDiscardPage().deleteSigns.size() - 1)).click();
     }
 
     @Then("{string} should see the same info about the pricelist")
@@ -92,11 +100,17 @@ public class EditAllPriceListStepDefs implements PricelistInfo{
 
 //--------------------------------------------Add and Delete Items in Pricelist Items field--------------------------------------------
 
+    @And("{string} clicks on Edit button")
+    public void clicksOnEditButton(String arg0) {
+        pages.pricelistEditCreate().editButton.click();
+         itemsCount2 = pages.pricelistSaveDiscardPage().deleteSigns.size();
+    }
     @Then("{string} should see Global and Fix Price radio buttons are chosen by default")
     public void shouldSeeGlobalAndFixPriceRadioButtonsAreChosenByDefault(String arg0) {
         Assert.assertTrue(pages.createPricelistItems().globalRadioBtn.isSelected());
         Assert.assertTrue(pages.createPricelistItems().fixPriceRadioBtn.isSelected());
     }
+
     @When("{string} clicks on {string} button on both fields")
     public void clicksOnButtonOnBothField(String arg0, String arg1) {
         int randomNumber = BrowserUtils.randomNumber(0, pages.createPricelistItems().ApplyOnButtons.size() - 1);
@@ -108,6 +122,7 @@ public class EditAllPriceListStepDefs implements PricelistInfo{
             pages.createPricelistItems().ApplyOnButtons.get(randomNumber).click();
         }
     }
+
     @And("{string} fills the required field")
     public void fillsTheRequiredField(String arg0) {
         pages.createPricelistItems().computePriceButtons.get(BrowserUtils.randomNumber(0, pages.createPricelistItems().computePriceButtons.size() - 1)).click();
@@ -117,13 +132,31 @@ public class EditAllPriceListStepDefs implements PricelistInfo{
 
     @Then("{string} should see that item count is increased by one")
     public void shouldSeeThatItemCountIsIncreasedByOne(String arg0) {
-        Assert.assertEquals(pages.pricelistSaveDiscardPage().deleteSigns.size(), itemsCount+1);
+        Assert.assertEquals("Items count doesn't match", itemsCount2 + 1, pages.pricelistSaveDiscardPage().deleteSigns.size());
     }
 
-    @Then("{string} should see that itemcount is decreased by one")
+    @Then("{string} should see that item count is decreased by one")
     public void shouldSeeThatItemcountIsDecreasedByOne(String arg0) {
-        Assert.assertEquals(pages.pricelistSaveDiscardPage().deleteSigns.size(), itemsCount - 1);
+        Assert.assertEquals("Items count doesn't match",itemsCount2, pages.pricelistSaveDiscardPage().deleteSigns.size());
+    }
+//---------------------------Check the discard message after clicking on discard button---------------------------------
+    @Then("{string} should see the discard message")
+    public void shouldSeeTheDiscardMessage(String arg0) {
+        Assert.assertEquals("Discard message doesn't match", ConfigurationReader.getProperty("discardmessage"),
+                pages.pricelistSaveDiscardPage().discardMessage.getText());
     }
 
 
+    //----------------------Use back and forward arrows to change the pricelist-----------------------------------------------
+    @Then("The name of the pricelist should change")
+    public void theNameOfThePricelistShouldChange() {
+        BrowserUtils.wait(1);
+        Assert.assertTrue(!(pages.pricelistEditCreate().pricelistName.getText().equals(pricelistName)));
+
+    }
+
+    @Then("{string} should see the previous pricelist name")
+    public void shouldSeeThePreviousPricelistName(String arg0) {
+        Assert.assertTrue(pages.pricelistEditCreate().pricelistName.getText().equals(pricelistName));
+    }
 }

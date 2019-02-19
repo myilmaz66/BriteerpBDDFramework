@@ -7,27 +7,14 @@ import cucumber.api.java.en.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class UniversalStepDefs  {
+public class UniversalStepDefs {
     Pages pages = new Pages();
-
-    @And("{string} clicks on {string}")
-    public void clicksOn(String user, String something) {
-        switch (something.toLowerCase()) {
-            case "a random pricelist name":
-                BrowserUtils.wait(1);
-                pages.pricelists().priceListNames.get(BrowserUtils.randomNumber(0,
-                        pages.pricelists().priceListNames.size() - 1)).click();
-
-                break;
-        }
-    }
 
     @And("{string} clicks on {string} button")
     public void clicksOnButton(String user, String buttonName) {
         switch (buttonName.toLowerCase()) {
             case "edit":
                 pages.pricelistEditCreate().editButton.click();
-                int itemsCount = pages.pricelistSaveDiscardPage().deleteSigns.size();
                 break;
             case "save":
                 pages.pricelistSaveDiscardPage().saveButton.click();
@@ -38,14 +25,15 @@ public class UniversalStepDefs  {
             case "ok":
                 pages.pricelistSaveDiscardPage().okButton.click();
                 break;
-            case "Save & Close":
+            case "save & close":
                 pages.createPricelistItems().saveAndClose.click();
+                BrowserUtils.wait(1);
                 break;
             case "a random radio":
                 pages.createPricelistItems().ApplyOnButtons.get(BrowserUtils.randomNumber(0,
-                        pages.createPricelistItems().ApplyOnButtons.size()-1));
+                        pages.createPricelistItems().ApplyOnButtons.size() - 1));
                 pages.createPricelistItems().computePriceButtons.get(BrowserUtils.randomNumber(0,
-                        pages.createPricelistItems().computePriceButtons.size()-1));
+                        pages.createPricelistItems().computePriceButtons.size() - 1));
                 break;
         }
     }
@@ -57,13 +45,15 @@ public class UniversalStepDefs  {
                 pages.odoo().briteErpDemo.click();
                 break;
             case "point of sale":
-                BrowserUtils.fluentWait(pages.discussModulePage().pointOfSale, 10);
+                BrowserUtils.wait(2);
                 pages.discussModulePage().pointOfSale.click();
                 break;
             case "pricelists":
                 pages.pointOfSaleModulePage().pricelistsLink.click();
+                break;
             case "add an item":
                 pages.pricelistSaveDiscardPage().addAnItem2.click();
+                break;
         }
     }
 
@@ -79,9 +69,17 @@ public class UniversalStepDefs  {
     @When("{string} clicks on {string} sign")
     public void clicksOnSign(String arg0, String signName) {
         switch (signName.toLowerCase()) {
-            case "trash can":
-                pages.pricelistSaveDiscardPage().deleteSigns.get(BrowserUtils.randomNumber(0,
-                        pages.pricelistSaveDiscardPage().deleteSigns.size()-1 ));
+            case "a trash can":
+                pages.pricelistSaveDiscardPage().deleteSigns.get(pages.pricelistSaveDiscardPage().deleteSigns.size() - 1).click();
+                BrowserUtils.wait(1);
+                break;
+            case "forward arrow":
+                pages.pricelistSaveDiscardPage().forwardArrowButton.click();
+                BrowserUtils.wait(1);
+                break;
+            case "back arrow":
+                pages.pricelistSaveDiscardPage().backArrowButton.click();
+                BrowserUtils.wait(1);
                 break;
         }
     }

@@ -7,7 +7,7 @@ Feature: As a POSManeger7, I should be able to edit all PriceList
     Then "User" logs in as a manager
     When "User" clicks on "Point of Sale" link
     And "User" clicks on "Pricelists" link
-    And "User" clicks on "a random pricelist name"
+    And "User" clicks on a random pricelist name
 
   Scenario: Check if PriceList name can be updated and saved after clicking on edit button
     And "User" clicks on "Edit" button
@@ -16,7 +16,7 @@ Feature: As a POSManeger7, I should be able to edit all PriceList
     Then The name of the pricelist should match with what user put
     When "User" clicks on "Pricelists" link
     Then "User" should see the updated name on pricelist name table
-@wip
+
   Scenario: Discard any edited pricelist
     And "User" clicks on "Edit" button
     And "User" changes the name of the pricelist
@@ -27,20 +27,34 @@ Feature: As a POSManeger7, I should be able to edit all PriceList
     And "User" clicks on "Discard" button
     And "User" clicks on "Ok" button
     Then "User" should see the same info about the pricelist
-#  @wip
+
   Scenario: Add and Delete Items in Pricelist Items field
-    And "User" clicks on "Edit" button
+    And "User" clicks on Edit button
     And "User" clicks on "Add an item" link
     Then "User" should see Global and Fix Price radio buttons are chosen by default
     When "User" clicks on "a random radio" button on both fields
     And "User" fills the required field
     And "User" clicks on "Save & Close" button
     Then "User" should see that item count is increased by one
-    When "User" clicks on "a random trash can" sign
-    Then "User" should see that itemcount is decreased by one
+    When "User" clicks on "a trash can" sign
+    Then "User" should see that item count is decreased by one
 
 
+  Scenario: Check the discard message after clicking on discard button
+    And "User" clicks on "Edit" button
+    And "User" changes the name of the pricelist
+    And "User" types a code into E-commerce Promotional Code field
+    And "User" clicks on "Allow to use on" dropdown
+    And "User" chooses the second option
+    And "User" deletes an item from Pricelist Items table
+    And "User" clicks on "Discard" button
+    Then "User" should see the discard message
 
+  Scenario: Use back and forward arrows to change the pricelist
+    And "User" clicks on "forward arrow" sign
+    Then The name of the pricelist should change
+    When "User" clicks on "back arrow" sign
+    Then "User" should see the previous pricelist name
 
 
 

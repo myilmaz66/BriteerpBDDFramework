@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
                 "rerun:target/rerun.txt"},
         features = "src/test/resources/features",
         glue = "com/briteerp/steps",
-        dryRun = false,
-        tags = "@wip")
+        dryRun = false)
 public class CukesRunner {
 }
