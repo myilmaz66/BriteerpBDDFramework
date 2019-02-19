@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Hooks {
 
-   protected Pages pages;
+    protected Pages pages;
 
     @Before
     public void setup() {

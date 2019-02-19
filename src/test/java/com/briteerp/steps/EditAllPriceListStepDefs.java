@@ -1,149 +1,92 @@
 package com.briteerp.steps;
 
+
 import com.briteerp.utilities.BrowserUtils;
 import com.briteerp.utilities.ConfigurationReader;
 import com.briteerp.utilities.Driver;
 import com.briteerp.utilities.Pages;
+import com.github.javafaker.Faker;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.WebDriver;
+import org.junit.Assert;
 
-import javax.security.auth.login.Configuration;
+import java.util.List;
 
-public class EditAllPriceListStepDefs {
+import static com.briteerp.utilities.BrowserUtils.fluentWait;
+import static com.briteerp.utilities.BrowserUtils.waitForClickablility;
+
+public class EditAllPriceListStepDefs implements PricelistInfo{
     Pages pages = new Pages();
+    String newPricelistName;
 
-
-    @Given("User navigates to odoo homepage")
-    public void user_navigates_to_odoo_homepage() {
+    @Given("{string} navigates to odoo homepage")
+    public void navigatesToOdooHomepage(String user) {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
     }
 
-    @When("User clicks on BriteErpDemo link")
-    public void user_clicks_on_BriteErpDemo_link() {
-        pages.odoo().briteErpDemo.click();
+    @Then("{string} should see the login page")
+    public void shouldSeeTheLoginPage(String arg0) {
+        String expectedTitle = "Login | Website localhost";
+        String expectedUrl = "http://52.39.162.23/web/login";
+        Assert.assertEquals("Title is not matching", expectedTitle, Driver.getDriver().getTitle());
+        Assert.assertEquals("URL is not matching", expectedUrl, Driver.getDriver().getCurrentUrl());
     }
 
-    @Then("User puts email {string} and password {string}")
-    public void user_puts_email_and_password(String email, String password) {
-        pages.loginPage().emailBox.sendKeys(ConfigurationReader.getProperty(email));
-        pages.loginPage().passwordBox.sendKeys(ConfigurationReader.getProperty(password));
+    @Then("{string} logs in as a manager")
+    public void logsInAsAManager(String arg0) {
+        pages.loginPage().positiveLogIn();
     }
 
-    @When("User clicks on login button")
-    public void user_clicks_on_login_button() {
-        pages.loginPage().logInButton.click();
-    }
-
-    @Then("User should be able to log in")
-    public void user_should_be_able_to_log_in() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @When("User clicks on Point of Sale")
-    public void user_clicks_on_Point_of_Sale() {
-        pages.discussModulePage().pointOfSale.click();
-    }
-
-    @When("User clicks on Pricelists link")
-    public void user_clicks_on_Pricelists_link() {
-        pages.pointOfSaleModulePage().pricelistsLink.click();
-    }
-//===================================================================================================================================================================================
-
-
-    @When("User clicks on a random pricelist name")
-    public void user_clicks_on_a_random_pricelist_name() {
-
-    }
-
-    @When("User clicks on edit button")
-    public void user_clicks_on_edit_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @When("User changes the name of the pricelist")
-    public void user_changes_the_name_of_the_pricelist() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @When("User clicks on save button")
-    public void user_clicks_on_save_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+    @And("{string} changes the name of the pricelist")
+    public void changesTheNameOfThePricelist(String arg0) {
+        pages.pricelistSaveDiscardPage().pricelistName.clear();
+        Faker faker = new Faker();
+        newPricelistName = faker.commerce().productName();
+        pages.pricelistSaveDiscardPage().pricelistName.sendKeys(newPricelistName);
     }
 
     @Then("The name of the pricelist should match with what user put")
     public void the_name_of_the_pricelist_should_match_with_what_user_put() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        Assert.assertEquals(pages.pricelistEditCreate().pricelistName.getText(), newPricelistName);
     }
 
-    @When("User clicks on Pricelists link again")
-    public void user_clicks_on_Pricelists_link_again() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+    @Then("{string} should see the updated name on pricelist name table")
+    public void shouldSeeTheUpdatedNameOnPricelistNameTable(String arg0) {
+        BrowserUtils.wait(1);
+        List<String> allPriceListNames = BrowserUtils.getElementsText(pages.pricelists().priceListNames);
+        Assert.assertTrue("Pricelist name was not found: ", allPriceListNames.contains(newPricelistName));
     }
 
-    @Then("User should see the updated name on pricelist name table")
-    public void user_should_see_the_updated_name_on_pricelist_name_table() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+    @And("{string} types a code into E-commerce Promotional Code field")
+    public void typesACodeIntoECommercePromotionalCodeField(String arg0) {
+        pages.pricelistSaveDiscardPage().eCommercePromotionalCodeBox.sendKeys("12070");
     }
 
-
-//======================================================================================================================================================================================
-
-    @Given("User is on Pricelists page")
-    public void user_is_on_Pricelists_page() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+    @And("{string} chooses the second option")
+    public void choosesTheSecondOption(String arg0) {
+        pages.pricelistSaveDiscardPage().allowToUseOn2Option.click();
     }
 
-    @When("User types a code into {string} field")
-    public void user_types_a_code_into_field(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+    @And("{string} deletes an item from Pricelist Items table")
+    public void deletesAnItemFromPricelistItemsTable(String arg0) {
+        pages.pricelistSaveDiscardPage().deleteSigns.get(BrowserUtils.randomNumber(0,
+        pages.pricelistSaveDiscardPage().deleteSigns.size() - 1)).click();
     }
 
-    @When("User clicks on {string} dropdown and choose the second option")
-    public void user_clicks_on_dropdown_and_choose_the_second_option(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+    @Then("{string} should see the message")
+    public void shouldSeeTheMessage(String arg0) {
+
     }
 
-    @When("User deletes an item from {string} table")
-    public void user_deletes_an_item_from_table(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @When("User clicks on discard button")
-    public void user_clicks_on_discard_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @Then("User should see the message")
-    public void user_should_see_the_message() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @When("User clicks on {string} button")
-    public void user_clicks_on_button(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @Then("User should see the same info about the pricelist")
-    public void user_should_see_the_same_info_about_the_pricelist() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+    @Then("{string} should see the same info about the pricelist")
+    public void shouldSeeTheSameInfoAboutThePricelist(String arg0) {
+        System.out.println(pricelistName);
+        Assert.assertEquals(pages.pricelistEditCreate().pricelistName.getText(), pricelistName);
+        Assert.assertEquals(pages.pricelistEditCreate().eCommercePromotionalCodeBox.getText(), eCommercePromotionalCode);
+        Assert.assertEquals(pages.pricelistEditCreate().selectedAllowToUseOn.getText(), allowToUseOn);
+        Assert.assertEquals(pages.pricelistEditCreate().pricelistItems.size() + "", itemsCount);
     }
 
 

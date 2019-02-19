@@ -28,7 +28,7 @@ public class PricelistSaveDiscardPage {
     public WebElement okButton;
 
     @FindBy(xpath = "//button[@type='button'][contains(text(),'Save')]")
-    public WebElement save;
+    public WebElement saveButton;
 
     @FindBy(xpath = "//div[@name='item_ids']//tbody/tr/td/button")
     public List<WebElement> deleteSigns;

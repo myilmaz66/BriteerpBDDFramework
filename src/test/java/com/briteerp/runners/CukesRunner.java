@@ -5,7 +5,6 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 
-
 @RunWith(Cucumber.class)
 @CucumberOptions(
         plugin = {
@@ -15,7 +14,6 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "com/briteerp/steps",
         dryRun = false,
-        tags = "@back1"
-)
+        tags = "@wip")
 public class CukesRunner {
 }

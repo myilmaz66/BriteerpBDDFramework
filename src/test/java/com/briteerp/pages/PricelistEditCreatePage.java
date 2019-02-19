@@ -26,6 +26,4 @@ public class PricelistEditCreatePage {
 
     @FindBy(xpath = "//tbody[@class='ui-sortable']//tr/td[1][@class='o_data_cell o_readonly_modifier']")
     public List<WebElement> pricelistItems;
-
-
 }
