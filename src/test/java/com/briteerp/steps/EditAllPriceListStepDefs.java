@@ -20,6 +20,7 @@ import static com.briteerp.utilities.BrowserUtils.waitForClickablility;
 public class EditAllPriceListStepDefs implements PricelistInfo{
     Pages pages = new Pages();
     String newPricelistName;
+    int itemsCount;
 
     @Given("{string} navigates to odoo homepage")
     public void navigatesToOdooHomepage(String user) {
@@ -87,6 +88,41 @@ public class EditAllPriceListStepDefs implements PricelistInfo{
         Assert.assertEquals(pages.pricelistEditCreate().eCommercePromotionalCodeBox.getText(), eCommercePromotionalCode);
         Assert.assertEquals(pages.pricelistEditCreate().selectedAllowToUseOn.getText(), allowToUseOn);
         Assert.assertEquals(pages.pricelistEditCreate().pricelistItems.size() + "", itemsCount);
+    }
+
+//--------------------------------------------Add and Delete Items in Pricelist Items field--------------------------------------------
+
+    @Then("{string} should see Global and Fix Price radio buttons are chosen by default")
+    public void shouldSeeGlobalAndFixPriceRadioButtonsAreChosenByDefault(String arg0) {
+        Assert.assertTrue(pages.createPricelistItems().globalRadioBtn.isSelected());
+        Assert.assertTrue(pages.createPricelistItems().fixPriceRadioBtn.isSelected());
+    }
+    @When("{string} clicks on {string} button on both fields")
+    public void clicksOnButtonOnBothField(String arg0, String arg1) {
+        int randomNumber = BrowserUtils.randomNumber(0, pages.createPricelistItems().ApplyOnButtons.size() - 1);
+        if (randomNumber > 0) {
+            pages.createPricelistItems().ApplyOnButtons.get(randomNumber).click();
+            pages.createPricelistItems().productBox.get(randomNumber - 1).click();
+            pages.createPricelistItems().productItems.get(BrowserUtils.randomNumber(0, pages.createPricelistItems().productItems.size() - 1)).click();
+        } else {
+            pages.createPricelistItems().ApplyOnButtons.get(randomNumber).click();
+        }
+    }
+    @And("{string} fills the required field")
+    public void fillsTheRequiredField(String arg0) {
+        pages.createPricelistItems().computePriceButtons.get(BrowserUtils.randomNumber(0, pages.createPricelistItems().computePriceButtons.size() - 1)).click();
+        pages.createPricelistItems().minQuantityBox.clear();
+        pages.createPricelistItems().minQuantityBox.sendKeys("" + BrowserUtils.randomNumber(0, 10));
+    }
+
+    @Then("{string} should see that item count is increased by one")
+    public void shouldSeeThatItemCountIsIncreasedByOne(String arg0) {
+        Assert.assertEquals(pages.pricelistSaveDiscardPage().deleteSigns.size(), itemsCount+1);
+    }
+
+    @Then("{string} should see that itemcount is decreased by one")
+    public void shouldSeeThatItemcountIsDecreasedByOne(String arg0) {
+        Assert.assertEquals(pages.pricelistSaveDiscardPage().deleteSigns.size(), itemsCount - 1);
     }
 
 

@@ -16,7 +16,7 @@ Feature: As a POSManeger7, I should be able to edit all PriceList
     Then The name of the pricelist should match with what user put
     When "User" clicks on "Pricelists" link
     Then "User" should see the updated name on pricelist name table
-
+@wip
   Scenario: Discard any edited pricelist
     And "User" clicks on "Edit" button
     And "User" changes the name of the pricelist
@@ -27,17 +27,17 @@ Feature: As a POSManeger7, I should be able to edit all PriceList
     And "User" clicks on "Discard" button
     And "User" clicks on "Ok" button
     Then "User" should see the same info about the pricelist
-  @wip
-  Scenario: "Add and Delete Items in Pricelist Items field
+#  @wip
+  Scenario: Add and Delete Items in Pricelist Items field
     And "User" clicks on "Edit" button
     And "User" clicks on "Add an item" link
     Then "User" should see Global and Fix Price radio buttons are chosen by default
-    When "User" clicks on "a random radio" button
+    When "User" clicks on "a random radio" button on both fields
     And "User" fills the required field
     And "User" clicks on "Save & Close" button
-    Then "User" should see item count is increased by one
+    Then "User" should see that item count is increased by one
     When "User" clicks on "a random trash can" sign
-    Then "User" should see item count is decreased by one
+    Then "User" should see that itemcount is decreased by one
 
 
 

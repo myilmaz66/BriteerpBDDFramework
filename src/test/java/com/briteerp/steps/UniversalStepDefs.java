@@ -7,15 +7,17 @@ import cucumber.api.java.en.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class UniversalStepDefs extends BrowserUtils {
+public class UniversalStepDefs  {
     Pages pages = new Pages();
 
     @And("{string} clicks on {string}")
     public void clicksOn(String user, String something) {
         switch (something.toLowerCase()) {
             case "a random pricelist name":
-                pages.pricelists().priceListNames.get(randomNumber(0,
+                BrowserUtils.wait(1);
+                pages.pricelists().priceListNames.get(BrowserUtils.randomNumber(0,
                         pages.pricelists().priceListNames.size() - 1)).click();
+
                 break;
         }
     }
@@ -25,6 +27,7 @@ public class UniversalStepDefs extends BrowserUtils {
         switch (buttonName.toLowerCase()) {
             case "edit":
                 pages.pricelistEditCreate().editButton.click();
+                int itemsCount = pages.pricelistSaveDiscardPage().deleteSigns.size();
                 break;
             case "save":
                 pages.pricelistSaveDiscardPage().saveButton.click();
@@ -54,7 +57,7 @@ public class UniversalStepDefs extends BrowserUtils {
                 pages.odoo().briteErpDemo.click();
                 break;
             case "point of sale":
-                fluentWait(pages.discussModulePage().pointOfSale, 10);
+                BrowserUtils.fluentWait(pages.discussModulePage().pointOfSale, 10);
                 pages.discussModulePage().pointOfSale.click();
                 break;
             case "pricelists":
