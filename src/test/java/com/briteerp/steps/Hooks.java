@@ -23,10 +23,11 @@ public class Hooks {
 
     }
 
-    @Before
-    public void beforeScenarioStart(){
-        System.out.println("-----------------Start of Scenario-----------------");
-    }
+//    @Before
+//    public void beforeScenarioStart(){
+//        System.out.println("-----------------Start of Scenario-----------------");
+//
+//    }
 
     @After
     public void tearDown(Scenario scenario) {

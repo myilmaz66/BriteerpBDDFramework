@@ -1,5 +1,6 @@
 Feature: Paying for item
 
+
   Background:
     Given user on the "http://52.39.162.23/web/database/selector" page
     Then user click on BritErpDemo

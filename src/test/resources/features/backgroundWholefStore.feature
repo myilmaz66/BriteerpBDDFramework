@@ -1,9 +1,10 @@
 
 Feature: pre-cond
 
+
   @back1
 Scenario: : pre-condition
-Given user on the "http://52.39.162.23/web/database/selector" page
+      Given user on the "http://52.39.162.23/web/database/selector" page
     Then user click on BritErpDemo
     Then "login" page should be displayed
     And user logs in as a Manager
