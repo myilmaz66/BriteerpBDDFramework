@@ -1,10 +1,7 @@
+Feature: Search box
 
-Feature: pre-cond
-
-
-  @back1
-Scenario: : pre-condition
-      Given user on the "http://52.39.162.23/web/database/selector" page
+  Background:
+    Given user on the "http://52.39.162.23/web/database/selector" page
     Then user click on BritErpDemo
     Then "login" page should be displayed
     And user logs in as a Manager
@@ -13,3 +10,7 @@ Scenario: : pre-condition
     Then user see "Point of Sale - Odoo" page
     Then user click on resume of Whole Foods Store
     Then "Odoo POS" Point Of sale page should be displayed
+
+  Scenario:
+Then type in search box Car travel
+And verify Car Travel is displayed
