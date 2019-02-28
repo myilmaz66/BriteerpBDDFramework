@@ -2,13 +2,13 @@ Feature: As a POSManeger7, I should be able to edit all PriceList
 
   Background:
     Given "User" navigates to odoo homepage
-    When "User" clicks on "BriteErpDemo" link
+   ## When "User" clicks on "BriteErpDemo" link
     Then "User" should see the login page
     Then "User" logs in as a manager
     When "User" clicks on "Point of Sale" link
     And "User" clicks on "Pricelists" link
     And "User" clicks on a random pricelist name
-
+  @wip
   Scenario: Check if PriceList name can be updated and saved after clicking on edit button
     And "User" clicks on "Edit" button
     And "User" changes the name of the pricelist
