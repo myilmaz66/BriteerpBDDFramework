@@ -8,7 +8,7 @@ Feature: As a POSManeger7, I should be able to edit all PriceList
     When "User" clicks on "Point of Sale" link
     And "User" clicks on "Pricelists" link
     And "User" clicks on a random pricelist name
-  @wip
+
   Scenario: Check if PriceList name can be updated and saved after clicking on edit button
     And "User" clicks on "Edit" button
     And "User" changes the name of the pricelist
