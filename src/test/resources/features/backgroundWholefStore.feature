@@ -12,4 +12,4 @@ Scenario: : pre-condition
     And user click on PointOfSale module
     Then user see "Point of Sale - Odoo" page
     Then user click on resume of Whole Foods Store
-    Then "Odoo POS" Point Of sale page should be displayed
+    Then "Odoo POS" Point Of sale page should be sadsa
