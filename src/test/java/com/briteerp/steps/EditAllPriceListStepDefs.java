@@ -34,7 +34,7 @@ public class EditAllPriceListStepDefs {
     @Then("{string} should see the login page")
     public void shouldSeeTheLoginPage(String arg0) {
         String expectedTitle = "Login | Website localhost";
-        String expectedUrl = "http://52.39.162.23/web/login";
+        String expectedUrl = "http://54.148.96.210/web/login";
         Assert.assertEquals("Title is not matching", expectedTitle, Driver.getDriver().getTitle());
         Assert.assertEquals("URL is not matching", expectedUrl, Driver.getDriver().getCurrentUrl());
     }
